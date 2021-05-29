@@ -39,11 +39,16 @@ const Time: React.FC = () => {
   const { reports, addReport } = useReportsStore();
 
   useEffect(() => {
-    if (reports.length > 0 && reportsToday.length === 0) {
+    if (reports.length > 0) {
       const d = reports.filter((r) => isToday(r.startDate));
       setReportsToday(d);
 
-      if (d.length > 0)
+      if (
+        d.length > 0 &&
+        currentDuration.hours === 0 &&
+        currentDuration.minutes === 0 &&
+        currentDuration.seconds === 0
+      )
         updateDuration(
           d
             .map((r) => r.duration)
