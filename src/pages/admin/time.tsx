@@ -39,7 +39,7 @@ const Time: React.FC = () => {
   const { reports, addReport } = useReportsStore();
 
   useEffect(() => {
-    if (reports.length > 0) {
+    if (reports.length > 0 && reportsToday.length === 0) {
       const d = reports.filter((r) => isToday(r.startDate));
       setReportsToday(d);
 
@@ -70,13 +70,16 @@ const Time: React.FC = () => {
       updateTimer(null);
 
       if (currentProject && startDate) {
-        addReport({
+        const rep: Report = {
           project: currentProject,
           description: currentDescription,
           startDate,
           endDate: new Date(Date.now()),
           duration: currentDuration,
-        });
+        };
+
+        addReport(rep);
+        setReportsToday((current) => [...current, rep]);
 
         updateProject(null);
         updateStartDate(null);
