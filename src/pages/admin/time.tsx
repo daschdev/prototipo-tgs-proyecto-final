@@ -33,6 +33,7 @@ const Time: React.FC = () => {
     startDate,
     updateStartDate,
     currentDuration,
+    incrementDuration,
     updateDuration,
   } = useTimeStore();
   const { reports, addReport } = useReportsStore();
@@ -90,27 +91,7 @@ const Time: React.FC = () => {
       return;
     }
 
-    const t = setInterval(() => {
-      let { hours, minutes, seconds } = currentDuration;
-
-      if (seconds === 59) {
-        seconds = 0;
-        minutes += 1;
-      } else seconds += 1;
-
-      if (minutes >= 60) {
-        minutes = 0;
-        hours += 1;
-      }
-
-      updateDuration({
-        hours,
-        minutes,
-        seconds,
-      });
-    }, 1000);
-
-    updateTimer(t);
+    updateTimer(setInterval(() => incrementDuration(), 1000));
     updateStartDate(new Date(Date.now()));
   };
 

@@ -16,6 +16,7 @@ interface TimeStore {
   updateStartDate(startDate: Date | null): void;
 
   currentDuration: Duration;
+  incrementDuration(): void;
   updateDuration(currentDuration: Duration): void;
 }
 
@@ -37,6 +38,28 @@ const useTimeStore = create<TimeStore>((set) => ({
     minutes: 0,
     seconds: 0,
   },
+  incrementDuration: () =>
+    set(({ currentDuration }) => {
+      let { hours, minutes, seconds } = currentDuration;
+
+      if (seconds === 59) {
+        seconds = 0;
+        minutes += 1;
+      } else seconds += 1;
+
+      if (minutes >= 60) {
+        minutes = 0;
+        hours += 1;
+      }
+
+      return {
+        currentDuration: {
+          hours,
+          minutes,
+          seconds,
+        },
+      };
+    }),
   updateDuration: (currentDuration) => set({ currentDuration }),
 }));
 
