@@ -89,6 +89,7 @@ const Time: React.FC = () => {
       }
 
       updateDescription(``);
+      updateLastDuration(getTotalDuration());
       clearCurrentDuration();
       return;
     }

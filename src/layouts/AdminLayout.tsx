@@ -50,7 +50,7 @@ const AdminLayout: React.FC<Props> = ({ title, children }) => {
   const classes = useStyles();
   const router = useRouter();
 
-  const { timer, currentDuration } = useTimeStore();
+  const { timer, getTotalDuration } = useTimeStore();
 
   return (
     <div className={classes.container}>
@@ -59,7 +59,7 @@ const AdminLayout: React.FC<Props> = ({ title, children }) => {
         {!timer ? (
           <title>Globant Timer || {title}</title>
         ) : (
-          <title>{parseDuration(currentDuration)}</title>
+          <title>{parseDuration(getTotalDuration())}</title>
         )}
       </Head>
       <AppBar position="fixed" className={classes.appBar}>
