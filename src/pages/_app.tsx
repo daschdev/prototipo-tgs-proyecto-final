@@ -7,7 +7,7 @@ import Head from 'next/head';
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => (
   <>
     <Head>
-      <link rel="image/png" href="/globant-icon.png" />
+      <link rel="icon" type="image/png" href="/globant-icon.png" />
     </Head>
     <Component {...pageProps} />
     <ToastContainer position="top-right" />
