@@ -15,12 +15,15 @@ interface TimeStore {
   startDate: Date | null;
   updateStartDate(startDate: Date | null): void;
 
+  lastDuration: Duration;
+  updateLastDuration(lastDuration: Duration): void;
   currentDuration: Duration;
   incrementDuration(): void;
-  updateDuration(currentDuration: Duration): void;
+  clearCurrentDuration(): void;
+  getTotalDuration(): Duration;
 }
 
-const useTimeStore = create<TimeStore>((set) => ({
+const useTimeStore = create<TimeStore>((set, get) => ({
   timer: null,
   updateTimer: (timer) => set({ timer }),
 
@@ -33,6 +36,12 @@ const useTimeStore = create<TimeStore>((set) => ({
   startDate: null,
   updateStartDate: (startDate) => set({ startDate }),
 
+  lastDuration: {
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  },
+  updateLastDuration: (lastDuration) => set({ lastDuration }),
   currentDuration: {
     hours: 0,
     minutes: 0,
@@ -60,7 +69,17 @@ const useTimeStore = create<TimeStore>((set) => ({
         },
       };
     }),
-  updateDuration: (currentDuration) => set({ currentDuration }),
+  clearCurrentDuration: () =>
+    set({ currentDuration: { hours: 0, minutes: 0, seconds: 0 } }),
+  getTotalDuration: () => {
+    const { lastDuration, currentDuration } = get();
+
+    return {
+      hours: lastDuration.hours + currentDuration.hours,
+      minutes: lastDuration.minutes + currentDuration.minutes,
+      seconds: lastDuration.seconds + currentDuration.seconds,
+    };
+  },
 }));
 
 export default useTimeStore;

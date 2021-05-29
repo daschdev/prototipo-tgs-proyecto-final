@@ -32,9 +32,12 @@ const Time: React.FC = () => {
     updateProject,
     startDate,
     updateStartDate,
+    lastDuration,
+    updateLastDuration,
     currentDuration,
     incrementDuration,
-    updateDuration,
+    clearCurrentDuration,
+    getTotalDuration,
   } = useTimeStore();
   const { reports, addReport } = useReportsStore();
 
@@ -45,11 +48,11 @@ const Time: React.FC = () => {
 
       if (
         d.length > 0 &&
-        currentDuration.hours === 0 &&
-        currentDuration.minutes === 0 &&
-        currentDuration.seconds === 0
+        lastDuration.hours === 0 &&
+        lastDuration.minutes === 0 &&
+        lastDuration.seconds === 0
       )
-        updateDuration(
+        updateLastDuration(
           d
             .map((r) => r.duration)
             .reduce((p, c) => ({
@@ -59,7 +62,7 @@ const Time: React.FC = () => {
             })),
         );
     }
-  }, [reports, reportsToday, currentDuration]);
+  }, [reports, reportsToday, lastDuration]);
 
   const handleButton = (): void => {
     setDescriptionError(``);
@@ -86,6 +89,7 @@ const Time: React.FC = () => {
       }
 
       updateDescription(``);
+      clearCurrentDuration();
       return;
     }
 
@@ -148,7 +152,7 @@ const Time: React.FC = () => {
         </Grid>
         <Grid item xs={12}>
           <Typography align="center">
-            Tiempo total de hoy: {parseDuration(currentDuration)}
+            Tiempo total de hoy: {parseDuration(getTotalDuration())}
           </Typography>
         </Grid>
         <Grid item xs={12}>
