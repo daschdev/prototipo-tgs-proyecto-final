@@ -32,7 +32,7 @@ const SignIn: React.FC = () => {
   return (
     <div className={classes.container}>
       <Head>
-        <title>Prototipo de Sistema (Proyecto Final) || Inicia sesión</title>
+        <title>Globant Timer || Inicia sesión</title>
       </Head>
       <Grid
         container

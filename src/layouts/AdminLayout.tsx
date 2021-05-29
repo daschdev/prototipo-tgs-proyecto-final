@@ -57,7 +57,7 @@ const AdminLayout: React.FC<Props> = ({ title, children }) => {
       <CssBaseline />
       <Head>
         {!timer ? (
-          <title>Prototipo de Sistema (Proyecto Final) || {title}</title>
+          <title>Globant Timer || {title}</title>
         ) : (
           <title>{parseDuration(currentDuration)}</title>
         )}
